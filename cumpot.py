@@ -51,5 +51,4 @@ def get_tag_messages(message):
     vid = random.choice(data.videos)
     bot.send_message(message.from_user.id, vid.url, reply_markup = markup)
 
-print("схулухия бот")
 bot.polling(none_stop=True, interval=0)
