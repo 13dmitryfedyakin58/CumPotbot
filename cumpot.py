@@ -7,8 +7,11 @@ api = PornhubApi()
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    if message.text == "/help":
-        bot.send_message(message.from_user.id, "Напиши компот")
+    if message.text == "/start":
+        markup = types.ReplyKeyboardMarkup()
+        markup.row('компот', 'рандом')
+        bot.send_message(message.from_user.id, "Привет, я бот компот!")
+        bot.send_message(message.from_user.id, "Воспользуйся кнопками ниже, чтобы найти лучшие видео в интернете 😏", reply_markup=markup)
     elif message.text == "компот":
         bot.send_message(message.from_user.id, "Напиши категорию")
         bot.register_next_step_handler(message, get_tag_messages)
@@ -23,15 +26,16 @@ def get_text_messages(message):
                 break
             bot.send_message(message.from_user.id, vid.url)
             count += 1
+    elif message.text == "илья":
+        bot.send_message(message.from_user.id, "камень🗿")
     else:
-        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
+        bot.send_message(message.from_user.id, "Я тебя не понимаю")
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
     if call.data == 'more':
         bot.send_message(call.message.chat.id, "Напиши категорию")
         bot.register_next_step_handler(call.message, get_tag_messages)
-    #    bot.register_next_step_handler(call.message, get_tag_messages)
 
 def get_tag_messages(message):
     count = 0
