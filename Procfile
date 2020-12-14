@@ -1,1 +1,1 @@
-worker: python cumpot.py $PORT
+worker: python cumpot.py
